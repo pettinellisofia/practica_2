@@ -1,3 +1,5 @@
+import random
+
 def analizar_texto(text):
     lineas = text.split('\n')
     total_lineas = len(lineas)
@@ -126,3 +128,29 @@ def analizar_hashtags(lista_posts):
 
     total_unicos = len(conteo_hstgs)
     print(f"Total de hashtags únicos: {total_unicos}")   
+
+
+def sortear_amigo_inv(nombres):
+    lista_nom = nombres.split(', ')
+    participantes = []
+
+    for nombre in lista_nom:
+        nombre_ok = nombre.strip().title()
+
+        if nombre_ok not in participantes:
+            participantes.append(nombre_ok)
+    
+    if len(participantes) < 3:
+        print("Se necesitan al menos 3 participantes para realizar el sorteo.")
+        return
+    
+    random.shuffle(participantes)
+
+    print("Resultados del sorteo de amigo invisible:")
+
+    for i in range(len(participantes)):
+        if i == len(participantes) - 1:
+            amigo_asig = participantes[0]
+        else:
+            amigo_asig = participantes[i + 1]
+        print(f"{participantes[i]} le regala a {amigo_asig}")
