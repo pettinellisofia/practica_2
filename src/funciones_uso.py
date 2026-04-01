@@ -1,4 +1,5 @@
 import random
+import string
 
 def analizar_texto(text):
     lineas = text.split('\n')
@@ -154,3 +155,21 @@ def sortear_amigo_inv(nombres):
         else:
             amigo_asig = participantes[i + 1]
         print(f"{participantes[i]} le regala a {amigo_asig}")
+
+
+def cifrado_cesar (mensaje, desplaza):
+    abc_min = string.ascii_lowercase
+    abc_may = string.ascii_uppercase
+
+    cifrado = [
+        abc_min[(abc_min.index(c) + desplaza) % 26] if c in abc_min else
+        abc_may[(abc_may.index(c) + desplaza) % 26] if c in abc_may else 
+        c
+
+        for c in mensaje
+    ]
+    return "".join(cifrado)
+
+
+def descifrar_mensaje (mensaje, desplazamiento):
+    return cifrado_cesar(mensaje, -desplazamiento)
