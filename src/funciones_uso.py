@@ -61,3 +61,22 @@ def filtrar_spoilers (texto, palabras_spoiler):
         texto_filtrado = texto_filtrado.replace(palabra.capitalize(), reemplazo)
 
     return texto_filtrado
+
+
+def validar_email(email):
+    if email.count('@') != 1:
+        return False
+    
+    if email.startswith('@') or email.endswith('@') or email.startswith('.') or email.endswith('.'):
+        return False
+    
+    derecha = email.split('@')[1]
+    if '.' not in derecha:
+        return False
+    
+    punto = email.split('.')
+    dom = punto[-1]
+    if len(dom) < 2:
+        return False
+    
+    return True
