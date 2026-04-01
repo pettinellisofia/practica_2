@@ -80,3 +80,28 @@ def validar_email(email):
         return False
     
     return True
+
+
+def calcular_costoenvio (peso, zona):
+    zona = zona.lower()
+
+    zonas_validas = ["local", "regional", "nacional"]
+    if zona not in zonas_validas:
+        return f"Zona no válida. Las zonas disponibles son_ {', '.join(zonas_validas)}."
+    
+    costo = 0
+
+    if peso <= 1:
+        if zona == "local": costo = 500
+        elif zona == "regional": costo = 1000
+        else: costo = 2000
+    elif 1 < peso <= 5:
+        if zona == "local": costo = 1000
+        elif zona == "regional": costo = 2500
+        else: costo = 4500
+    else:
+        if zona == "local": costo = 2000
+        elif zona == "regional": costo = 5000
+        else: costo = 8000
+
+    return f"Costo de envío: ${costo}"
