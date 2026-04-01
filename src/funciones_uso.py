@@ -105,3 +105,24 @@ def calcular_costoenvio (peso, zona):
         else: costo = 8000
 
     return f"Costo de envío: ${costo}"
+
+
+def analizar_hashtags(lista_posts):
+    conteo_hstgs = {}
+
+    for post in lista_posts:
+        palabras = post.split()
+        for palabra in palabras:
+            if palabra.startswith('#'):
+                if palabra in conteo_hstgs:
+                    conteo_hstgs[palabra] += 1
+                else:
+                    conteo_hstgs[palabra] = 1
+    print("Hashtags trending con más de una aparición:")
+
+    for hashtag, cantidad in conteo_hstgs.items():
+        if cantidad > 1:
+            print(f"{hashtag}: {cantidad} veces")
+
+    total_unicos = len(conteo_hstgs)
+    print(f"Total de hashtags únicos: {total_unicos}")   
