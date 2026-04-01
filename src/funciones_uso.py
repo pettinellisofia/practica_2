@@ -45,3 +45,19 @@ def analizar_playlist(playlist):
     print(f"Duración total: {total_m}m {total_s}s")
     print(f'Canción más larga: "{mas_larga["title"]}" ({mas_larga["duration"]})')
     print(f'Canción más corta: "{mas_corta["title"]}" ({mas_corta["duration"]})')
+
+def filtrar_spoilers (texto, palabras_spoiler):
+    lista_spoilers = palabras_spoiler.split(', ')
+
+    texto_filtrado = texto
+
+    for spoiler in lista_spoilers:
+        palabra = spoiler.strip()
+
+        reemplazo = '*' * len(palabra)
+
+        texto_filtrado = texto_filtrado.replace(palabra, reemplazo)
+        texto_filtrado = texto_filtrado.replace(palabra.lower(), reemplazo)
+        texto_filtrado = texto_filtrado.replace(palabra.capitalize(), reemplazo)
+
+    return texto_filtrado
