@@ -194,3 +194,57 @@ def limpiar_alumnos (lista_alumnos):
 
     return sorted(alumnos.items())
 
+
+def simula_competencia (rondas):
+    estadisticas = {}
+    result_rondas = []
+    total_rondas = len(rondas)
+
+    for i in range(total_rondas):
+        ronda_act = rondas[i]
+        tema = ronda_act['theme']
+        puntajes = {}
+
+        for participante, jueces in ronda_act['scores'].items():
+            puntaje_tot = sum(jueces.values())
+            puntajes[participante] = puntaje_tot
+
+            if participante not in estadisticas:
+                estadisticas[participante] = {
+                    'puntaje total' : 0,
+                    'rondas ganadas' : 0,
+                    'mejor_ronda' : 0
+                }
+
+            estadisticas[participante]['puntaje total'] += puntaje_tot
+
+            if puntaje_tot > estadisticas[participante]['mejor_ronda']:
+                estadisticas[participante]['mejor_ronda'] = puntaje_tot
+
+        posiciones_ronda = sorted(puntajes.items(), key=lambda x: x[1], reverse=True)
+        ganador_ronda = posiciones_ronda[0][0]
+        puntaje_ganador = posiciones_ronda[0][1]
+        estadisticas[ganador_ronda]['rondas ganadas'] += 1
+
+        result_rondas.append({
+            'numero': i + 1,
+            'tema': tema,
+            'ganador': ganador_ronda,
+            'puntaje': puntaje_ganador,
+            'posiciones': posiciones_ronda
+            })
+        
+    tabla_final = []
+    for participante, datos in estadisticas.items():
+        promedio = datos['puntaje total'] / total_rondas
+        tabla_final.append({
+            'participante': participante,
+            'puntaje total': datos['puntaje total'],
+            'rondas ganadas': datos['rondas ganadas'],
+            'mejor ronda': datos['mejor_ronda'],
+            'promedio': promedio
+        })
+    
+    tabla_final_ord = sorted(tabla_final, key=lambda x: x['puntaje total'], reverse=True)
+    
+    return result_rondas, tabla_final_ord
