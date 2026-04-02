@@ -173,3 +173,24 @@ def cifrado_cesar (mensaje, desplaza):
 
 def descifrar_mensaje (mensaje, desplazamiento):
     return cifrado_cesar(mensaje, -desplazamiento)
+
+
+def limpiar_alumnos (lista_alumnos):
+    alumnos = {}
+
+    for alu in lista_alumnos:
+        alumno_ok = alu['name']
+        nota = alu['grade']
+        
+        if alumno_ok is not None and alumno_ok.strip() != "":
+            if nota is not None and str(nota).isdigit():
+                nombre_listo = alumno_ok.strip().title()
+                nota_ok = int(nota)
+            
+                prolijo = alu['status'].strip().title() if alu['status'] else "Sin estado"
+                
+                if nombre_listo not in alumnos or nota_ok > alumnos[nombre_listo]['grade']:
+                    alumnos[nombre_listo] = {'grade': nota_ok, 'status': prolijo}
+
+    return sorted(alumnos.items())
+
